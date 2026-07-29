@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Desktop - Menu Ikon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #0a1628;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Efek background biru tua */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(30, 60, 114, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 60, 114, 0.3) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container-outer {
+            background: #1a3a6b;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 1250px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .container-inner {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e8ecf1;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #dc3545;
+            text-shadow: 0 2px 10px rgba(220, 53, 69, 0.15);
+        }
+
+        .header h1 .highlight {
+            color: #dc3545;
+            position: relative;
+        }
+
+        .header h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #dc3545, transparent);
+            border-radius: 10px;
+        }
+
+        .header h1 .web {
+            color: #1a3a6b;
+        }
+
+        .header p {
+            color: #6b7a8f;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        /* Tombol Full Screen */
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 58, 107, 0.9);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(26, 58, 107, 1);
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .fullscreen-btn:active {
+            transform: scale(0.95);
+        }
+
+        .fullscreen-btn .icon-fs {
+            margin-right: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 50%, #27ae60 100%);
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            border: 2px solid rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efek glow */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.5);
+            border-color: #2ecc71;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 50%, #2ecc71 100%);
+        }
+
+        .card:active {
+            transform: scale(0.95);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            display: block;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+            transition: all 0.4s ease;
+            color: #ffffff;
+        }
+
+        .card:hover .icon {
+            transform: scale(1.15) rotate(-5deg);
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+        }
+
+        .card .label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 0.55rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            letter-spacing: 0.5px;
+        }
+
+        .card:hover .badge {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Badge khusus untuk Dapodik */
+        .card:last-child .badge {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+            animation: pulseBadge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+            color: #8a9aa8;
+            font-size: 0.9rem;
+            border-top: 1px solid #e8ecf1;
+            padding-top: 20px;
+        }
+
+        .footer .by {
+            color: #1a3a6b;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container-outer {
+                padding: 15px;
+            }
+
+            .container-inner {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 15px;
+            }
+            
+            .card {
+                padding: 20px 10px;
+            }
+            
+            .card .icon {
+                font-size: 2.8rem;
+            }
+            
+            .card .label {
+                font-size: 0.85rem;
+            }
+
+            .fullscreen-btn {
+                top: 10px;
+                right: 10px;
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .card .badge {
+                display: none;
+            }
+
+            .fullscreen-btn {
+                top: 10px;
+                right: 10px;
+                padding: 5px 12px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Tooltip */
+        .card[data-link] {
+            position: relative;
+        }
+
+        .card[data-link]:hover::after {
+            content: '▶ BUKA';
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: #2ecc71;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            z-index: 10;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a1628;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1a3a6b;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2a5a8b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tombol Full Screen -->
+    <button class="fullscreen-btn" onclick="toggleFullScreen()" id="fsBtn">
+        <span class="icon-fs">⛶</span> 
+        <span id="fsText">Full Screen</span>
+    </button>
+
+    <div class="container-outer">
+        <div class="container-inner">
+            <!-- Header -->
+            <div class="header">
+                <h1>
+                    📚 
+                    <span class="web">WEB ASH SHIDIQI</span>
+                    <span class="highlight">RAJABASA BARU</span>
+                </h1>
+                <p>Klik ikon untuk mengakses menu</p>
+            </div>
+
+            <!-- Grid Ikon -->
+            <div class="grid">
+                <!-- Program Sekolah -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbwge9euy3nyAI2lUQ1CcHSNfxqCsaERm98es3hO44rjxWD-eJMHO8NcC4H9PdFe5qE7/exec" onclick="openLink(this)">
+                    <span class="icon">🏫</span>
+                    <span class="label">Program Sekolah</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Buku Induk -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycby1pGkxakOTMUmg_gkxdGlAY4EaPlU1atGRGkQlLQm3eYtWl7_Wj2IuwPeB5Xgj92me9w/exec" onclick="openLink(this)">
+                    <span class="icon">📖</span>
+                    <span class="label">Buku Induk</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Kartu Pelajar -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbw6LyAseWZpQHDkTjNzzp8z8g5i2wjgT55vm2BeG7g7NHNjQ6-NTwFqdNh1ESZeiHUb/exec" onclick="openLink(this)">
+                    <span class="icon">🪪</span>
+                    <span class="label">Kartu Pelajar</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Kartu Ujian -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbwTG0SOiQjlp3gQg2dYwSZfQhaHW5-hoOwaLSOT3evcwlGW1rMMLqY2_zrOzA-yg7t0/exec" onclick="openLink(this)">
+                    <span class="icon">📝</span>
+                    <span class="label">Kartu Ujian</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Kesiswaan -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbzlNmbUaSbM6HGT77RPQ9jv86pNLRhUOkgjtgf6RjLxbJRup3z9XVcjEU50eZZp6n9o0Q/exec" onclick="openLink(this)">
+                    <span class="icon">👥</span>
+                    <span class="label">Kesiswaan</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Jadwal Pelajaran -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbz1LZugo4_ew-N6uj-cVmymUV_ZxlrBSlqSvOuZwRuO81tNxwXxCd5Xsbx_G1vsUao7dw/exec" onclick="openLink(this)">
+                    <span class="icon">📅</span>
+                    <span class="label">Jadwal Pelajaran</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Absen -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbyZ5dWVsLkhNPpbkCeMgS87nZQdSU0NL-7BbnIArS3Mo2bBooorga5_fftwX9CaP-9s/exec" onclick="openLink(this)">
+                    <span class="icon">✅</span>
+                    <span class="label">Absen</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Bendahara -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbzqOmlchyF4my9cID8F3kNQr3tdwKgrVS5XionR-8OkJWXM911zTk6rY2fkNImgLHOC6Q/exec" onclick="openLink(this)">
+                    <span class="icon">💰</span>
+                    <span class="label">Bendahara</span>
+                    <span class="badge">Link</span>
+                </div>
+
+                <!-- Dapodik -->
+                <div class="card" data-link="https://www.contoh.com/dapodik" onclick="openLink(this)">
+                    <span class="icon">💻</span>
+                    <span class="label">Dapodik</span>
+                    <span class="badge">Baru</span>
+                </div>
+				                <!-- Jadwal PKM -->
+                <div class="card" data-link="https://script.google.com/macros/s/AKfycbybyXsGE2JJIy4dh5I9Nnns7aXscIcrgPcfzMyPA0z8qlfE8aFkWfr_-bD3tJXNOwP2WA/exec" onclick="openLink(this)">
+                    <span class="icon">✅</span>
+                    <span class="label">Jadwal PKM</span>
+                    <span class="badge">Link</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>© 2026 Aplikasi Desktop | by <span class="by">Zase</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Fungsi untuk toggle Full Screen
+         */
+        function toggleFullScreen() {
+            const fsBtn = document.getElementById('fsBtn');
+            const fsText = document.getElementById('fsText');
+            
+            if (!document.fullscreenElement) {
+                // Masuk ke mode full screen
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error: ${err.message}`);
+                });
+                fsText.textContent = 'Exit Full';
+                fsBtn.style.background = 'rgba(220, 53, 69, 0.9)';
+                fsBtn.style.borderColor = 'rgba(220, 53, 69, 0.5)';
+                showNotification('⛶ Mode Full Screen Aktif');
+            } else {
+                // Keluar dari mode full screen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    fsText.textContent = 'Full Screen';
+                    fsBtn.style.background = 'rgba(26, 58, 107, 0.9)';
+                    fsBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    showNotification('⛶ Keluar dari Full Screen');
+                }
+            }
+        }
+
+        /**
+         * Deteksi perubahan full screen
+         */
+        document.addEventListener('fullscreenchange', function() {
+            const fsText = document.getElementById('fsText');
+            const fsBtn = document.getElementById('fsBtn');
+            
+            if (document.fullscreenElement) {
+                fsText.textContent = 'Exit Full';
+                fsBtn.style.background = 'rgba(220, 53, 69, 0.9)';
+                fsBtn.style.borderColor = 'rgba(220, 53, 69, 0.5)';
+            } else {
+                fsText.textContent = 'Full Screen';
+                fsBtn.style.background = 'rgba(26, 58, 107, 0.9)';
+                fsBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            }
+        });
+
+        /**
+         * Fungsi untuk membuka link saat ikon diklik
+         * @param {HTMLElement} element - Elemen card yang diklik
+         */
+        function openLink(element) {
+            const link = element.getAttribute('data-link');
+            
+            if (link) {
+                // Efek visual saat diklik
+                element.style.transform = 'scale(0.92)';
+                element.style.boxShadow = '0 0 40px rgba(46, 204, 113, 0.6)';
+                setTimeout(() => {
+                    element.style.transform = '';
+                    element.style.boxShadow = '';
+                }, 300);
+
+                // Buka link di tab baru
+                window.open(link, '_blank');
+                
+                // Tampilkan notifikasi
+                showNotification(`✅ Membuka: ${element.querySelector('.label').textContent}`);
+            } else {
+                showNotification('⚠ Link belum tersedia');
+            }
+        }
+
+        /**
+         * Fungsi untuk menampilkan notifikasi
+         * @param {string} message - Pesan yang akan ditampilkan
+         */
+        function showNotification(message) {
+            let notification = document.querySelector('.custom-notification');
+            
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.className = 'custom-notification';
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    background: rgba(10, 22, 40, 0.95);
+                    color: #2ecc71;
+                    padding: 14px 28px;
+                    border-radius: 12px;
+                    font-size: 0.95rem;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                    z-index: 1000;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: all 0.4s ease;
+                    font-family: 'Segoe UI', sans-serif;
+                    max-width: 400px;
+                    border: 1px solid rgba(46, 204, 113, 0.3);
+                    font-weight: 600;
+                    backdrop-filter: blur(10px);
+                `;
+                document.body.appendChild(notification);
+            }
+
+            notification.textContent = message;
+            
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateY(0)';
+            
+            clearTimeout(notification.timeout);
+            notification.timeout = setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(20px)';
+            }, 2500);
+        }
+
+        // Keyboard Shortcut: Tekan F11 atau Escape untuk keluar full screen
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F11') {
+                e.preventDefault();
+                toggleFullScreen();
+            }
+        });
+
+        // Keyboard Accessibility untuk card
+        document.querySelectorAll('.card').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `Buka ${card.querySelector('.label').textContent}`);
+            
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLink(card);
+                }
+            });
+        });
+
+        console.log('✅ Aplikasi Desktop siap digunakan!');
+        console.log('⛶ Tekan F11 atau klik tombol Full Screen');
+        console.log('📊 Jumlah menu:', document.querySelectorAll('.card').length);
+    </script>
+</body>
+</html>
