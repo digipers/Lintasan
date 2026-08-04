@@ -13,54 +13,159 @@
         }
 
         body {
-            background: #0a1628;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
             position: relative;
+            background: #0a1628;
+            overflow-x: hidden;
         }
 
-        /* Efek background biru tua */
-        body::before {
-            content: '';
+        /* === BACKGROUND AI FUTURISTIK === */
+        .bg-ai {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(30, 60, 114, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(30, 60, 114, 0.3) 0%, transparent 50%);
             z-index: 0;
-            pointer-events: none;
+            background: 
+                /* Gradient base */
+                linear-gradient(135deg, #0a0e27 0%, #1a1a4e 30%, #0d1b3e 60%, #1a0a2e 100%);
+            overflow: hidden;
         }
 
+        /* Particle Network */
+        .bg-ai canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+        }
+
+        /* Glow Orbs */
+        .bg-ai .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: floatOrb 20s ease-in-out infinite alternate;
+        }
+
+        .bg-ai .orb-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -200px;
+            background: radial-gradient(circle, #00d4ff, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .bg-ai .orb-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: -150px;
+            background: radial-gradient(circle, #7c3aed, transparent 70%);
+            animation-delay: -7s;
+        }
+
+        .bg-ai .orb-3 {
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, #06b6d4, transparent 70%);
+            animation-delay: -14s;
+            opacity: 0.15;
+        }
+
+        /* Grid Lines */
+        .bg-ai .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 30s linear infinite;
+        }
+
+        /* Floating Particles */
+        .bg-ai .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(0, 212, 255, 0.4);
+            border-radius: 50%;
+            animation: particleFloat 15s ease-in-out infinite;
+        }
+
+        .bg-ai .particle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .bg-ai .particle:nth-child(2) { top: 30%; left: 80%; animation-delay: -3s; width: 5px; height: 5px; }
+        .bg-ai .particle:nth-child(3) { top: 70%; left: 10%; animation-delay: -6s; }
+        .bg-ai .particle:nth-child(4) { top: 85%; left: 70%; animation-delay: -9s; width: 4px; height: 4px; }
+        .bg-ai .particle:nth-child(5) { top: 50%; left: 50%; animation-delay: -12s; width: 6px; height: 6px; background: rgba(124, 58, 237, 0.4); }
+        .bg-ai .particle:nth-child(6) { top: 15%; left: 60%; animation-delay: -2s; }
+        .bg-ai .particle:nth-child(7) { top: 65%; left: 40%; animation-delay: -8s; width: 4px; height: 4px; }
+        .bg-ai .particle:nth-child(8) { top: 40%; left: 15%; animation-delay: -5s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(10px, -10px) scale(1.05); }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            25% { transform: translate(20px, -30px) scale(1.5); opacity: 0.8; }
+            50% { transform: translate(-15px, 25px) scale(0.8); opacity: 0.2; }
+            75% { transform: translate(10px, -15px) scale(1.2); opacity: 0.6; }
+        }
+
+        /* === END BACKGROUND AI === */
+
         .container-outer {
-            background: #1a3a6b;
+            background: rgba(26, 58, 107, 0.85);
             border-radius: 25px;
             padding: 30px;
             max-width: 1250px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             z-index: 1;
+            backdrop-filter: blur(20px);
         }
 
         .container-inner {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 18px;
             padding: 35px;
             box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
+        /* === HEADER WITH JAM === */
         .header {
             text-align: center;
             margin-bottom: 35px;
             padding-bottom: 20px;
             border-bottom: 2px solid #e8ecf1;
+            position: relative;
         }
 
         .header h1 {
@@ -91,47 +196,136 @@
             color: #1a3a6b;
         }
 
-        .header p {
+        .header .subtitle {
             color: #6b7a8f;
             font-size: 1.1rem;
             margin-top: 5px;
         }
 
-        /* Tombol Full Screen */
+        /* === JAM DIGITAL === */
+        .clock-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 15px 0 5px 0;
+            flex-wrap: wrap;
+        }
+
+        .clock-box {
+            background: linear-gradient(135deg, #1a3a6b, #2a5a8b);
+            padding: 12px 25px;
+            border-radius: 12px;
+            box-shadow: 
+                0 4px 15px rgba(26, 58, 107, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.1);
+            color: white;
+            font-weight: 700;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .clock-box .number {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .clock-box .label-clock {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .clock-separator {
+            font-size: 2rem;
+            color: #1a3a6b;
+            font-weight: 700;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .date-box {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            padding: 12px 25px;
+            border-radius: 12px;
+            box-shadow: 
+                0 4px 15px rgba(46, 204, 113, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.1);
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .date-box .date-text {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .date-box .day-text {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* === TOMBOL 3D === */
         .fullscreen-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(26, 58, 107, 0.9);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
+            background: #dc3545;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
             border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
             z-index: 999;
-            backdrop-filter: blur(10px);
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            
+            /* Efek 3D */
+            box-shadow: 
+                0 6px 0 #a71d2a,
+                0 8px 20px rgba(220, 53, 69, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: all 0.1s ease;
         }
 
         .fullscreen-btn:hover {
-            background: rgba(26, 58, 107, 1);
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 0 #a71d2a,
+                0 12px 30px rgba(220, 53, 69, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            background: #e74c5e;
         }
 
         .fullscreen-btn:active {
-            transform: scale(0.95);
+            transform: translateY(4px);
+            box-shadow: 
+                0 2px 0 #a71d2a,
+                0 8px 20px rgba(220, 53, 69, 0.3);
         }
 
         .fullscreen-btn .icon-fs {
             margin-right: 8px;
         }
 
+        /* === GRID CARDS === */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -139,20 +333,26 @@
             justify-content: center;
         }
 
+        /* === CARD 3D === */
         .card {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 50%, #27ae60 100%);
+            background: linear-gradient(145deg, #27ae60, #1e8449);
             border-radius: 15px;
             padding: 25px 15px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-            border: 2px solid rgba(46, 204, 113, 0.3);
+            transition: all 0.15s ease;
             position: relative;
             overflow: hidden;
+            border: none;
+            
+            /* Efek 3D */
+            box-shadow: 
+                0 6px 0 #1a6e3a,
+                0 8px 25px rgba(46, 204, 113, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(0);
         }
 
-        /* Efek glow */
         .card::before {
             content: '';
             position: absolute;
@@ -160,7 +360,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -170,32 +370,55 @@
         }
 
         .card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.5);
-            border-color: #2ecc71;
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 50%, #2ecc71 100%);
+            transform: translateY(-4px);
+            box-shadow: 
+                0 8px 0 #1a6e3a,
+                0 15px 40px rgba(46, 204, 113, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
         }
 
         .card:active {
-            transform: scale(0.95);
+            transform: translateY(4px);
+            box-shadow: 
+                0 2px 0 #1a6e3a,
+                0 8px 25px rgba(46, 204, 113, 0.3);
         }
 
-        .card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20%;
-            right: 20%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.3);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-            border-radius: 10px;
-        }
+        /* Warna berbeda untuk setiap card */
+        .card:nth-child(1) { background: linear-gradient(145deg, #3498db, #2471a3); box-shadow: 0 6px 0 #1a5276, 0 8px 25px rgba(52, 152, 219, 0.4); }
+        .card:nth-child(1):hover { background: linear-gradient(145deg, #5dade2, #3498db); box-shadow: 0 8px 0 #1a5276, 0 15px 40px rgba(52, 152, 219, 0.5); }
 
-        .card:hover::after {
-            transform: scaleX(1);
-        }
+        .card:nth-child(2) { background: linear-gradient(145deg, #e67e22, #ca6f1e); box-shadow: 0 6px 0 #935e16, 0 8px 25px rgba(230, 126, 34, 0.4); }
+        .card:nth-child(2):hover { background: linear-gradient(145deg, #f39c12, #e67e22); box-shadow: 0 8px 0 #935e16, 0 15px 40px rgba(230, 126, 34, 0.5); }
+
+        .card:nth-child(3) { background: linear-gradient(145deg, #9b59b6, #7d3c98); box-shadow: 0 6px 0 #5b2d6e, 0 8px 25px rgba(155, 89, 182, 0.4); }
+        .card:nth-child(3):hover { background: linear-gradient(145deg, #af7ac5, #9b59b6); box-shadow: 0 8px 0 #5b2d6e, 0 15px 40px rgba(155, 89, 182, 0.5); }
+
+        .card:nth-child(4) { background: linear-gradient(145deg, #1abc9c, #148f77); box-shadow: 0 6px 0 #0e6655, 0 8px 25px rgba(26, 188, 156, 0.4); }
+        .card:nth-child(4):hover { background: linear-gradient(145deg, #48c9b0, #1abc9c); box-shadow: 0 8px 0 #0e6655, 0 15px 40px rgba(26, 188, 156, 0.5); }
+
+        .card:nth-child(5) { background: linear-gradient(145deg, #e74c3c, #c0392b); box-shadow: 0 6px 0 #922b21, 0 8px 25px rgba(231, 76, 60, 0.4); }
+        .card:nth-child(5):hover { background: linear-gradient(145deg, #ec7063, #e74c3c); box-shadow: 0 8px 0 #922b21, 0 15px 40px rgba(231, 76, 60, 0.5); }
+
+        .card:nth-child(6) { background: linear-gradient(145deg, #f1c40f, #d4ac0e); box-shadow: 0 6px 0 #9a7d0a, 0 8px 25px rgba(241, 196, 15, 0.4); }
+        .card:nth-child(6):hover { background: linear-gradient(145deg, #f4d03f, #f1c40f); box-shadow: 0 8px 0 #9a7d0a, 0 15px 40px rgba(241, 196, 15, 0.5); }
+        .card:nth-child(6) .label { color: #1a1a1a; }
+
+        .card:nth-child(7) { background: linear-gradient(145deg, #2ecc71, #27ae60); box-shadow: 0 6px 0 #1a6e3a, 0 8px 25px rgba(46, 204, 113, 0.4); }
+        .card:nth-child(7):hover { background: linear-gradient(145deg, #58d68d, #2ecc71); box-shadow: 0 8px 0 #1a6e3a, 0 15px 40px rgba(46, 204, 113, 0.5); }
+
+        .card:nth-child(8) { background: linear-gradient(145deg, #f39c12, #d68910); box-shadow: 0 6px 0 #9a6d0b, 0 8px 25px rgba(243, 156, 18, 0.4); }
+        .card:nth-child(8):hover { background: linear-gradient(145deg, #f5b041, #f39c12); box-shadow: 0 8px 0 #9a6d0b, 0 15px 40px rgba(243, 156, 18, 0.5); }
+
+        .card:nth-child(9) { background: linear-gradient(145deg, #dc3545, #b71c1c); box-shadow: 0 6px 0 #7f1d1d, 0 8px 25px rgba(220, 53, 69, 0.4); }
+        .card:nth-child(9):hover { background: linear-gradient(145deg, #e74c5e, #dc3545); box-shadow: 0 8px 0 #7f1d1d, 0 15px 40px rgba(220, 53, 69, 0.5); }
+
+        .card:nth-child(10) { background: linear-gradient(145deg, #00b894, #00856a); box-shadow: 0 6px 0 #005f4a, 0 8px 25px rgba(0, 184, 148, 0.4); }
+        .card:nth-child(10):hover { background: linear-gradient(145deg, #00d2a0, #00b894); box-shadow: 0 8px 0 #005f4a, 0 15px 40px rgba(0, 184, 148, 0.5); }
+
+        .card:nth-child(11) { background: linear-gradient(145deg, #6c5ce7, #4a3db8); box-shadow: 0 6px 0 #352a8a, 0 8px 25px rgba(108, 92, 231, 0.4); }
+        .card:nth-child(11):hover { background: linear-gradient(145deg, #8c7cf0, #6c5ce7); box-shadow: 0 8px 0 #352a8a, 0 15px 40px rgba(108, 92, 231, 0.5); }
 
         .card .icon {
             font-size: 3.5rem;
@@ -204,7 +427,7 @@
             position: relative;
             z-index: 1;
             filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             color: #ffffff;
         }
 
@@ -247,7 +470,6 @@
             transform: translateY(0);
         }
 
-        /* Badge khusus untuk Dapodik */
         .card:last-child .badge {
             background: #dc3545;
             color: white;
@@ -260,7 +482,7 @@
             50% { transform: scale(1.05); }
         }
 
-        /* Footer */
+        /* === FOOTER === */
         .footer {
             margin-top: 35px;
             text-align: center;
@@ -275,7 +497,7 @@
             font-weight: 700;
         }
 
-        /* Responsive */
+        /* === RESPONSIVE === */
         @media (max-width: 768px) {
             .container-outer {
                 padding: 15px;
@@ -287,6 +509,10 @@
             
             .header h1 {
                 font-size: 1.8rem;
+            }
+
+            .clock-box .number {
+                font-size: 1.5rem;
             }
             
             .grid {
@@ -309,8 +535,21 @@
             .fullscreen-btn {
                 top: 10px;
                 right: 10px;
-                padding: 6px 14px;
+                padding: 8px 16px;
                 font-size: 0.75rem;
+            }
+
+            .clock-container {
+                gap: 10px;
+            }
+
+            .clock-box, .date-box {
+                padding: 8px 15px;
+                min-width: 60px;
+            }
+
+            .date-box {
+                min-width: 140px;
             }
         }
 
@@ -325,14 +564,24 @@
             }
 
             .fullscreen-btn {
-                top: 10px;
-                right: 10px;
-                padding: 5px 12px;
+                padding: 6px 12px;
                 font-size: 0.7rem;
+            }
+
+            .clock-box .number {
+                font-size: 1.2rem;
+            }
+
+            .clock-separator {
+                font-size: 1.2rem;
+            }
+
+            .date-box .date-text {
+                font-size: 0.85rem;
             }
         }
 
-        /* Tooltip */
+        /* === TOOLTIP === */
         .card[data-link] {
             position: relative;
         }
@@ -355,7 +604,7 @@
             border: 1px solid rgba(46, 204, 113, 0.3);
         }
 
-        /* Scrollbar */
+        /* === SCROLLBAR === */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -372,10 +621,49 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #2a5a8b;
         }
+
+        /* === NOTIFICATION === */
+        .custom-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(10, 22, 40, 0.95);
+            color: #2ecc71;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 400px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body>
-    <!-- Tombol Full Screen -->
+    <!-- === BACKGROUND AI FUTURISTIK === -->
+    <div class="bg-ai" id="bgAI">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-lines"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <canvas id="networkCanvas"></canvas>
+    </div>
+
+    <!-- === TOMBOL FULL SCREEN 3D === -->
     <button class="fullscreen-btn" onclick="toggleFullScreen()" id="fsBtn">
         <span class="icon-fs">⛶</span> 
         <span id="fsText">Full Screen</span>
@@ -383,95 +671,108 @@
 
     <div class="container-outer">
         <div class="container-inner">
-            <!-- Header -->
+            <!-- === HEADER === -->
             <div class="header">
                 <h1>
                     📚 
                     <span class="web">WEB ASH SHIDIQI</span>
                     <span class="highlight">RAJABASA BARU</span>
                 </h1>
-                <p>Klik ikon untuk mengakses menu</p>
+                <p class="subtitle">Klik ikon untuk mengakses menu</p>
+
+                <!-- === JAM & TANGGAL === -->
+                <div class="clock-container">
+                    <div class="clock-box">
+                        <div class="number" id="hours">00</div>
+                        <div class="label-clock">Jam</div>
+                    </div>
+                    <span class="clock-separator">:</span>
+                    <div class="clock-box">
+                        <div class="number" id="minutes">00</div>
+                        <div class="label-clock">Menit</div>
+                    </div>
+                    <span class="clock-separator">:</span>
+                    <div class="clock-box">
+                        <div class="number" id="seconds">00</div>
+                        <div class="label-clock">Detik</div>
+                    </div>
+                    <div class="date-box">
+                        <div class="date-text" id="dateDisplay">1 Januari 2026</div>
+                        <div class="day-text" id="dayDisplay">Senin</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Grid Ikon -->
+            <!-- === GRID IKON === -->
             <div class="grid">
-                <!-- Program Sekolah -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbwge9euy3nyAI2lUQ1CcHSNfxqCsaERm98es3hO44rjxWD-eJMHO8NcC4H9PdFe5qE7/exec" onclick="openLink(this)">
                     <span class="icon">🏫</span>
                     <span class="label">Program Sekolah</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Buku Induk -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycby1pGkxakOTMUmg_gkxdGlAY4EaPlU1atGRGkQlLQm3eYtWl7_Wj2IuwPeB5Xgj92me9w/exec" onclick="openLink(this)">
                     <span class="icon">📖</span>
                     <span class="label">Buku Induk</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Kartu Pelajar -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbw6LyAseWZpQHDkTjNzzp8z8g5i2wjgT55vm2BeG7g7NHNjQ6-NTwFqdNh1ESZeiHUb/exec" onclick="openLink(this)">
                     <span class="icon">🪪</span>
                     <span class="label">Kartu Pelajar</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Kartu Ujian -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbwTG0SOiQjlp3gQg2dYwSZfQhaHW5-hoOwaLSOT3evcwlGW1rMMLqY2_zrOzA-yg7t0/exec" onclick="openLink(this)">
                     <span class="icon">📝</span>
                     <span class="label">Kartu Ujian</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Kesiswaan -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbzlNmbUaSbM6HGT77RPQ9jv86pNLRhUOkgjtgf6RjLxbJRup3z9XVcjEU50eZZp6n9o0Q/exec" onclick="openLink(this)">
                     <span class="icon">👥</span>
                     <span class="label">Kesiswaan</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Jadwal Pelajaran -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbz1LZugo4_ew-N6uj-cVmymUV_ZxlrBSlqSvOuZwRuO81tNxwXxCd5Xsbx_G1vsUao7dw/exec" onclick="openLink(this)">
                     <span class="icon">📅</span>
                     <span class="label">Jadwal Pelajaran</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Absen -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbyZ5dWVsLkhNPpbkCeMgS87nZQdSU0NL-7BbnIArS3Mo2bBooorga5_fftwX9CaP-9s/exec" onclick="openLink(this)">
                     <span class="icon">✅</span>
                     <span class="label">Absen</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Bendahara -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbzqOmlchyF4my9cID8F3kNQr3tdwKgrVS5XionR-8OkJWXM911zTk6rY2fkNImgLHOC6Q/exec" onclick="openLink(this)">
                     <span class="icon">💰</span>
                     <span class="label">Bendahara</span>
                     <span class="badge">Link</span>
                 </div>
 
-                <!-- Dapodik -->
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbz2n5Y8P8zs6-Bc3Sm_2gZoziHi3URJFWcBY2LyHFjxGQD-EQngLWarGexnv-ZAwkGh/exec" onclick="openLink(this)">
                     <span class="icon">💻</span>
                     <span class="label">Dapodik</span>
                     <span class="badge">Baru</span>
                 </div>
-				                <!-- Jadwal PKM -->
+
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbybyXsGE2JJIy4dh5I9Nnns7aXscIcrgPcfzMyPA0z8qlfE8aFkWfr_-bD3tJXNOwP2WA/exec" onclick="openLink(this)">
-                    <span class="icon">✅</span>
+                    <span class="icon">📋</span>
                     <span class="label">Jadwal PKM</span>
                     <span class="badge">Link</span>
                 </div>
-				               <!-- Honor -->
+
                 <div class="card" data-link="https://script.google.com/macros/s/AKfycbxSuTHw_p4_F3wrCKtFKwt081DvkHr3zMb7bX8X9Swu5hpawPzxwrP4YN5BrmsSiJ9fvQ/exec" onclick="openLink(this)">
-                    <span class="icon">💰</span>
+                    <span class="icon">🏆</span>
                     <span class="label">Honor</span>
                     <span class="badge">Link</span>
                 </div>
             </div>
 
-            <!-- Footer -->
+            <!-- === FOOTER === -->
             <div class="footer">
                 <p>© 2026 Aplikasi Desktop | by <span class="by">Zase</span></p>
             </div>
@@ -479,113 +780,201 @@
     </div>
 
     <script>
-        /**
-         * Fungsi untuk toggle Full Screen
-         */
+        // ============================================
+        // 1. NETWORK PARTICLES (Background AI)
+        // ============================================
+        (function initNetwork() {
+            const canvas = document.getElementById('networkCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 80;
+            const CONNECTION_DIST = 150;
+
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                width = canvas.width;
+                height = canvas.height;
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 2 + 1;
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 212, 255, 0.6)';
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < CONNECTION_DIST) {
+                            const opacity = 1 - (dist / CONNECTION_DIST);
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(0, 212, 255, ${opacity * 0.3})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                drawConnections();
+                requestAnimationFrame(animate);
+            }
+
+            resize();
+            initParticles();
+            animate();
+
+            window.addEventListener('resize', () => {
+                resize();
+                initParticles();
+            });
+        })();
+
+        // ============================================
+        // 2. JAM DIGITAL & TANGGAL
+        // ============================================
+        function updateClock() {
+            const now = new Date();
+            
+            // Jam
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+
+            // Tanggal
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                           'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const dayName = days[now.getDay()];
+            const date = now.getDate();
+            const monthName = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            document.getElementById('dayDisplay').textContent = dayName;
+            document.getElementById('dateDisplay').textContent = `${date} ${monthName} ${year}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================
+        // 3. FULL SCREEN
+        // ============================================
         function toggleFullScreen() {
             const fsBtn = document.getElementById('fsBtn');
             const fsText = document.getElementById('fsText');
             
             if (!document.fullscreenElement) {
-                // Masuk ke mode full screen
                 document.documentElement.requestFullscreen().catch(err => {
                     console.log(`Error: ${err.message}`);
                 });
                 fsText.textContent = 'Exit Full';
-                fsBtn.style.background = 'rgba(220, 53, 69, 0.9)';
-                fsBtn.style.borderColor = 'rgba(220, 53, 69, 0.5)';
+                fsBtn.style.background = '#e74c3c';
+                fsBtn.style.boxShadow = '0 6px 0 #a71d2a, 0 8px 20px rgba(220, 53, 69, 0.4)';
                 showNotification('⛶ Mode Full Screen Aktif');
             } else {
-                // Keluar dari mode full screen
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                     fsText.textContent = 'Full Screen';
-                    fsBtn.style.background = 'rgba(26, 58, 107, 0.9)';
-                    fsBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    fsBtn.style.background = '#dc3545';
+                    fsBtn.style.boxShadow = '0 6px 0 #a71d2a, 0 8px 20px rgba(220, 53, 69, 0.4)';
                     showNotification('⛶ Keluar dari Full Screen');
                 }
             }
         }
 
-        /**
-         * Deteksi perubahan full screen
-         */
         document.addEventListener('fullscreenchange', function() {
             const fsText = document.getElementById('fsText');
             const fsBtn = document.getElementById('fsBtn');
             
             if (document.fullscreenElement) {
                 fsText.textContent = 'Exit Full';
-                fsBtn.style.background = 'rgba(220, 53, 69, 0.9)';
-                fsBtn.style.borderColor = 'rgba(220, 53, 69, 0.5)';
+                fsBtn.style.background = '#e74c3c';
             } else {
                 fsText.textContent = 'Full Screen';
-                fsBtn.style.background = 'rgba(26, 58, 107, 0.9)';
-                fsBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                fsBtn.style.background = '#dc3545';
             }
         });
 
-        /**
-         * Fungsi untuk membuka link saat ikon diklik
-         * @param {HTMLElement} element - Elemen card yang diklik
-         */
+        // ============================================
+        // 4. OPEN LINK
+        // ============================================
         function openLink(element) {
             const link = element.getAttribute('data-link');
+            const label = element.querySelector('.label').textContent;
             
             if (link) {
-                // Efek visual saat diklik
-                element.style.transform = 'scale(0.92)';
-                element.style.boxShadow = '0 0 40px rgba(46, 204, 113, 0.6)';
+                element.style.transform = 'translateY(4px)';
+                element.style.boxShadow = '0 2px 0 #1a6e3a, 0 8px 25px rgba(46, 204, 113, 0.3)';
                 setTimeout(() => {
                     element.style.transform = '';
                     element.style.boxShadow = '';
                 }, 300);
 
-                // Buka link di tab baru
                 window.open(link, '_blank');
-                
-                // Tampilkan notifikasi
-                showNotification(`✅ Membuka: ${element.querySelector('.label').textContent}`);
+                showNotification(`✅ Membuka: ${label}`);
             } else {
                 showNotification('⚠ Link belum tersedia');
             }
         }
 
-        /**
-         * Fungsi untuk menampilkan notifikasi
-         * @param {string} message - Pesan yang akan ditampilkan
-         */
+        // ============================================
+        // 5. NOTIFICATION
+        // ============================================
         function showNotification(message) {
             let notification = document.querySelector('.custom-notification');
             
             if (!notification) {
                 notification = document.createElement('div');
                 notification.className = 'custom-notification';
-                notification.style.cssText = `
-                    position: fixed;
-                    bottom: 30px;
-                    right: 30px;
-                    background: rgba(10, 22, 40, 0.95);
-                    color: #2ecc71;
-                    padding: 14px 28px;
-                    border-radius: 12px;
-                    font-size: 0.95rem;
-                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-                    z-index: 1000;
-                    opacity: 0;
-                    transform: translateY(20px);
-                    transition: all 0.4s ease;
-                    font-family: 'Segoe UI', sans-serif;
-                    max-width: 400px;
-                    border: 1px solid rgba(46, 204, 113, 0.3);
-                    font-weight: 600;
-                    backdrop-filter: blur(10px);
-                `;
                 document.body.appendChild(notification);
             }
 
             notification.textContent = message;
-            
             notification.style.opacity = '1';
             notification.style.transform = 'translateY(0)';
             
@@ -596,7 +985,9 @@
             }, 2500);
         }
 
-        // Keyboard Shortcut: Tekan F11 atau Escape untuk keluar full screen
+        // ============================================
+        // 6. KEYBOARD SHORTCUTS
+        // ============================================
         document.addEventListener('keydown', function(e) {
             if (e.key === 'F11') {
                 e.preventDefault();
@@ -604,7 +995,9 @@
             }
         });
 
-        // Keyboard Accessibility untuk card
+        // ============================================
+        // 7. AKSESIBILITAS KEYBOARD
+        // ============================================
         document.querySelectorAll('.card').forEach(card => {
             card.setAttribute('tabindex', '0');
             card.setAttribute('role', 'button');
